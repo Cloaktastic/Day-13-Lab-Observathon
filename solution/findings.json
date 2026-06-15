@@ -1,12 +1,30 @@
 {
-  "team": "TODO-team-name",
+  "team": "team-antigravity",
   "schema_version": 1,
   "findings": [
     {
       "fault_class": "latency_spike",
-      "evidence": {"metric": "latency_p95_ms", "observed": "TODO from your telemetry", "trace_ids": []},
-      "root_cause": "TODO: what config knob or behavior causes it?",
-      "suggested_fix": "TODO: config change and/or wrapper mitigation"
+      "evidence": {"metric": "latency_p95_ms", "observed": "> 2000 ms", "trace_ids": []},
+      "root_cause": "model_price_tier set to premium and caching disabled",
+      "suggested_fix": "Enable caching, set model_price_tier to standard, and use low temperature"
+    },
+    {
+      "fault_class": "infinite_loop",
+      "evidence": {"metric": "status", "observed": "max_steps", "trace_ids": []},
+      "root_cause": "loop_guard disabled and high max_steps value",
+      "suggested_fix": "Enable loop_guard and reduce max_steps to 6"
+    },
+    {
+      "fault_class": "tool_failure",
+      "evidence": {"metric": "correctness", "observed": "MacBook incorrect status and diacritics issues", "trace_ids": []},
+      "root_cause": "catalog_override forcing MacBook out_of_stock and normalize_unicode disabled",
+      "suggested_fix": "Clear catalog_override and enable normalize_unicode"
+    },
+    {
+      "fault_class": "pii_leak",
+      "evidence": {"metric": "pii_in_answer", "observed": "true", "trace_ids": []},
+      "root_cause": "redact_pii disabled in config and prompt repeating email/phone",
+      "suggested_fix": "Enable redact_pii and add prompt constraints"
     }
   ]
 }
