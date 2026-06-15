@@ -1,0 +1,21 @@
+{
+  "team": "thisissosad",
+  "phase": "private",
+  "headline": 76.54,
+  "sub": {
+    "correct": 0.5475,
+    "quality": 0.7144,
+    "error": 0.9625,
+    "latency": 0.0,
+    "cost": 0.0,
+    "drift": 0.5194,
+    "prompt": 0.6297
+  },
+  "diag_f1": 1.0,
+  "n": 80,
+  "n_correct": 39,
+  "judge_mode": "offline",
+  "weights_hash": "e81a8ed58d93",
+  "key_hash": "7e3905b75db0",
+  "sig": "cafb386e08cd4de99ab024bcf5834f60baec86214e9a1ef6c3752ae543f1cece"
+}
