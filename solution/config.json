@@ -1,6 +1,6 @@
 {
   "provider": "openai",
-  "model": "gpt-5.4-nano",
+  "model": "meta-llama/llama-3.3-70b-instruct:free",
   "model_price_tier": "standard",
   "max_steps": 6,
   "loop_guard": true,
@@ -8,7 +8,7 @@
   "context_size": 4,
   "verbose_system": false,
   "timeout_ms": 3000,
-  "max_completion_tokens": 500,
+  "max_completion_tokens": 250,
   "retry": {"enabled": true, "max_attempts": 3, "backoff_ms": 100},
   "cache": {"enabled": true},
   "normalize_unicode": true,
@@ -20,6 +20,6 @@
   "route_rules": [],
   "planner": false,
   "verify": false,
-  "self_consistency": 3,
+  "self_consistency": 1,
   "tool_budget": 4
 }

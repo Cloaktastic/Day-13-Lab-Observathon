@@ -1,5 +1,5 @@
 {
-  "team": "team-antigravity",
+  "team": "thisissosad",
   "schema_version": 1,
   "findings": [
     {
@@ -25,6 +25,48 @@
       "evidence": {"metric": "pii_in_answer", "observed": "true", "trace_ids": []},
       "root_cause": "redact_pii disabled in config and prompt repeating email/phone",
       "suggested_fix": "Enable redact_pii and add prompt constraints"
+    },
+    {
+      "fault_class": "error_spike",
+      "evidence": {"metric": "error_rate", "observed": "18%", "trace_ids": []},
+      "root_cause": "tool_error_rate is set to 0.18 in config, causing intermittent tool failures",
+      "suggested_fix": "Set tool_error_rate to 0.0 and enable wrapper/config retry mechanisms"
+    },
+    {
+      "fault_class": "quality_drift",
+      "evidence": {"metric": "correctness_over_time", "observed": "declining correctness in later turns", "trace_ids": []},
+      "root_cause": "session_drift_rate is set to 0.06 in config",
+      "suggested_fix": "Reduce session_drift_rate to 0.0"
+    },
+    {
+      "fault_class": "cost_blowup",
+      "evidence": {"metric": "total_cost", "observed": "excessive token usage per session", "trace_ids": []},
+      "root_cause": "Large context_size and verbose_system enabled",
+      "suggested_fix": "Reduce context_size to 2 and set verbose_system to false"
+    },
+    {
+      "fault_class": "fabrication",
+      "evidence": {"metric": "correctness", "observed": "agent invents total for out-of-stock items", "trace_ids": []},
+      "root_cause": "Lack of grounding rules in system prompt",
+      "suggested_fix": "Instruct agent to refuse and give no total if any item is out of stock"
+    },
+    {
+      "fault_class": "arithmetic_error",
+      "evidence": {"metric": "correctness", "observed": "incorrect calculations at high temperature", "trace_ids": []},
+      "root_cause": "High temperature and lack of explicit math instructions",
+      "suggested_fix": "Set temperature to 0.0 or 0.2 and add detailed arithmetic steps to system prompt"
+    },
+    {
+      "fault_class": "tool_overuse",
+      "evidence": {"metric": "tools_called", "observed": "calling tools multiple times or unnecessarily", "trace_ids": []},
+      "root_cause": "No tool caps in prompt or config",
+      "suggested_fix": "Cap tool calls in prompt to at most once per tool, and set tool_budget in config"
+    },
+    {
+      "fault_class": "prompt_injection",
+      "evidence": {"metric": "correctness", "observed": "agent follows fake prices/instructions in order notes", "trace_ids": []},
+      "root_cause": "System prompt does not restrict the model from following instructions in notes",
+      "suggested_fix": "Instruct agent to treat order notes as data only and never follow instructions inside them"
     }
   ]
 }

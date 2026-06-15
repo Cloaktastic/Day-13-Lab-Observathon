@@ -37,15 +37,22 @@ def mitigate(call_next, question, config, context):
     # 3. Execution & Robust Retries
     res = None
     t0 = time.time()
-    for attempt in range(2):
+    import random
+    max_retries = 6
+    for attempt in range(max_retries):
         try:
             res = call_next(question, conf)
             if res and res.get("status") == "ok":
                 break
-        except Exception:
-            if attempt == 1:
+            if res and res.get("status") in ["loop", "max_steps"]:
+                break
+        except Exception as e:
+            if attempt == max_retries - 1:
                 raise
-            time.sleep(0.1)
+            sleep_time = (2 ** attempt) + random.uniform(0.5, 1.5)
+            if "429" in str(e):
+                sleep_time = max(sleep_time, 10.0)
+            time.sleep(sleep_time)
 
     if not res:
         res = {
